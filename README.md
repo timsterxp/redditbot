@@ -1,5 +1,5 @@
 # redditbot
-A simple Python-based Reddit bot for moderators in transaction-based subreddits. Includes automated filtering rules, more detailed user information, and also MySQL usage to track and update transaction amounts. 
+A simple and personal Python-based Reddit bot for moderators in transaction-based subreddits. Includes automated filtering rules, more detailed user information, and also MySQL usage to track and update transaction amounts. 
 
 reply_post.py
   Checks the given subreddit for new posts and has filtering rules to ensure all posts meet posting guidelines. If so, user information is taken to provide other users information about the original poster such as time of creation of account, karma counts, trades the user has done as well as a reminder to exercise safety when doing online-transactions. If not, the user is informed of why and how they can fix their post.
