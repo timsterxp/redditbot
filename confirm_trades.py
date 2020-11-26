@@ -1,6 +1,6 @@
 #!/usr/bin/python3.7
 #Removed MySQL info/Subreddit Details for Github Usage
-#git install test
+
 import praw
 import pdb
 import re
@@ -12,6 +12,8 @@ import mysql.connector
 connection = mysql.connector.connect(host='HOSTADDRESS',database='DATABASENAME',user='USERNAME',password='PASSWORD')
 reddit = praw.Reddit('BOTNAME/CONFIG')
 subreddit=reddit.subreddit('SUBREDDITNAME')
+submission = reddit.submission(id="SUBMISSIONID")
+fileName="filename.txt"
 
 #Finds the user and increments trade count, if does not exist, create a new user in MySQL
 def findUser(username):
@@ -53,7 +55,7 @@ def updateFlair(username):
     subreddit.flair.set(username, text="Trades:"+str(record[0]),css_class="")
     
 # Have we run this code before? If not, create an empty list
-if not os.path.isfile("FILENAME"):
+if not os.path.isfile(fileName):
     posts_replied_to = []
     # If we have run the code before, load the list of posts we have replied to
 else:
@@ -63,24 +65,29 @@ else:
         posts_replied_to = posts_replied_to.split("\n")
         posts_replied_to = list(filter(None, posts_replied_to))
     
-submission = reddit.submission(id="SUBMISSIONID")
+#Go through all comments in the thread
 for top_level_comment in submission.comments:
     topCheck = top_level_comment.author
-    #Base check, if the user deletes their comment then ignore it
+    
+    #Base check, if the user deleted their comment then ignore it 
     if (topCheck == None):
         continue
+    
     topUser=top_level_comment.author.name
     for second_level_comment in top_level_comment.replies:
         replyUser=second_level_comment.author.name
+        
         if  (second_level_comment.parent_id not in posts_replied_to) and (("confirmed" in second_level_comment.body) or ("Confirmed" in second_level_comment.body)):
-            posts_replied_to.append(second_level_comment.parent_id)
-            #search for users
-            findUser(topUser)
-            findUser(replyUser)
-            #Give confirmation to users that it worked
-            second_level_comment.reply("Added")
+            #User replying must have been tagged in original comment
+            if (replyUser in top_level_comment.body):
+                posts_replied_to.append(second_level_comment.parent_id)
+                #search for users
+                findUser(topUser)
+                findUser(replyUser)
+                #Give confirmation to users that it worked
+                second_level_comment.reply("Added")
             
-with open("FILENAME", "w") as f:
+with open(fileName, "w") as f:
     for post_id in posts_replied_to:
         f.write(post_id + "\n")
 
