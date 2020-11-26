@@ -10,19 +10,19 @@ import time
 import mysql.connector
 
 connection = mysql.connector.connect(host='HOSTADDRESS',database='DATABASENAME',user='USERNAME',password='PASSWORD')
-# Create the Reddit instance
 reddit = praw.Reddit('BOTNAME/PRAW CONFIG')
 subreddit = reddit.subreddit('SUBREDDITNAME')
-fileName='fileName'
+fileName="fileName"
+removalComment = ("Your submission is flagged as a selling post but does not contain a timestamp from imgur.com, please create a new post that follows all posting guidelines"
+                                + " including [USA-STATE][H][W] and a timestamp from imgur.com. A *Valid* timestamp includes a note/paper with your username and current date in the same picture as the item you are selling. "
+                                + "Do NOT edit your post to include a timestamp, only new posts will be permitted.")
 listStates = ["[USA-AL]","[USA-AK]","[USA-AR]","[USA-AZ]","[USA-CA]","[USA-CO]","[USA-CT]","[USA-DC]","[USA-DE]",
               "[USA-FL]","[USA-GA]","[USA-HI]","[USA-ID]","[USA-IL]","[USA-IN]","[USA-IA]","[USA-KS]","[USA-KY]",
               "[USA-LA]","[USA-ME]","[USA-MD]","[USA-MI]","[USA-MN]","[USA-MO]","[USA-MS]","[USA-MT]","[USA-NE]",
               "[USA-NV]","[USA-NH]","[USA-NJ]","[USA-NM]","[USA-NY]","[USA-NY]","[USA-NC]", "[USA-ND]","[USA-OH]",
               "[USA-OK]","[USA-OR]","[USA-PA]","[USA-RI]","[USA-SC]","[USA-SD]","[USA-TN]","[USA-TX]","[USA-UT]",
               "[USA-VT]","[USA-VA]","[USA-WA]","[USA-WV]","[USA-WI]","[USA-WY]","[CAN]","[GBR]","[AUS]","[GER]"]
-removalComment = ("Your submission is flagged as a selling post but does not contain a timestamp from imgur.com, please create a new post that follows all posting guidelines"
-                                + " including [USA-STATE][H][W] and a timestamp from imgur.com. A *Valid* timestamp includes a note/paper with your username and current date in the same picture as the item you are selling. "
-                                + "Do NOT edit your post to include a timestamp, only new posts will be permitted.")
+
 
 def findUser(username):
     sql_find_user = "select * from trades where name='"+username+"'"
@@ -32,15 +32,20 @@ def findUser(username):
     rowFound=cursor.fetchone()
     if (rowFound==None):
         addUser(username)
+        cursor.close()
         return 0
     else:
+        sql_user_posted = "update trades set posted = 1 where name ='"+username+"'"
+        editCursor=connection.cursor()
+        editCursor.execute(sql_user_posted)
+        editCursor.close()
         return rowFound[1]
-        cursor.close()
+      
 
     
 def addUser(userName):
     addCursor=connection.cursor()
-    sql_add_user="insert into trade values('"+username+"','0')"
+    sql_add_user="insert into trade values('"+username+"',0,1)"
     addCursor.execute(sql_add_user)
     addCursor.close()
 
@@ -90,14 +95,14 @@ for submission in subreddit.new(limit=2):
             removed = submission.reply("Your submission title does not fit the standard posting guidelines, please repost following the [USA-STATE][H] item/money [W] item/money format. Note that State/Providence requirements are only necessary for the USA, you may use [CAN]/[GBR]/[AUS]/[GER] as necessary.")
             removed.mod.distinguish(how="yes",sticky=True)
             submission.mod.remove()
-            print("Bot replying to : ", submission.title)
+           # print("Bot replying to : ", submission.title) #debugging
 
         # Store the current id into our list
         posts_replied_to.append(submission.id)
         
 connection.commit()
 # Write our updated list back to the file
-with open("posts_replied_to.txt", "w") as f:
+with open(fileName, "w") as f:
     for post_id in posts_replied_to:
         f.write(post_id + "\n")
         
