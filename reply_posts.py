@@ -43,7 +43,7 @@ def findUser(username):
       
 
     
-def addUser(userName):
+def addUser(username):
     addCursor=connection.cursor()
     sql_add_user="insert into trade values('"+username+"',0,1)"
     addCursor.execute(sql_add_user)
@@ -65,7 +65,6 @@ else:
 
 for submission in subreddit.new(limit=2):
 
-    
     # If we haven't replied to this post before
     if submission.id not in posts_replied_to:
         
