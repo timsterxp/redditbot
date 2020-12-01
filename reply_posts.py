@@ -108,6 +108,6 @@ with open(fileName, "w") as f:
 # Close MySQL connection
 if (connection.is_connected()):
     connection.close()
-    cursor.close()
+    
     
 

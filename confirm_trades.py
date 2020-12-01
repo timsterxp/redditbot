@@ -1,5 +1,5 @@
 #!/usr/bin/python3.7
-#Removed MySQL info/Subreddit Details for Github Usage
+#Removed MySQL info/Subreddit Details for Github Usage/File Example
 
 import praw
 import pdb
@@ -93,14 +93,14 @@ for top_level_comment in submission.comments:
             if (replyUser in top_level_comment.body):
                 posts_replied_to.append(second_level_comment.parent_id)
                 #Ensure that at least one of the users had posted in the past month
-                if checkUsers(topUser,replyUser)!=0:
+                #if checkUsers(topUser,replyUser)!=0:
                      #search for users
-                    findUser(topUser)
-                    findUser(replyUser)
+                findUser(topUser)
+                findUser(replyUser)
                 #Give confirmation to users that it worked
-                    second_level_comment.reply("Added")
-                else:
-                    top_level_comment.reply("There was an issue adding, paging /u/ItzADino")
+                #    second_level_comment.reply("Added")
+                #else:
+                #   top_level_comment.reply("There was an issue adding, paging /u/ItzADino")
 with open(fileName, "w") as f:
     for post_id in posts_replied_to:
         f.write(post_id + "\n")
