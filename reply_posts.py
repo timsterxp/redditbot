@@ -80,10 +80,10 @@ for submission in subreddit.new(limit=2):
             else:
                 myTrades=findUser(user)
                 #Convert to user friendly date
-                dt=time.strftime('%Y-%m-%d %H:%M:%S', time.localtime(user.created_utc))
-                submission.reply("Username: /u/" + user.name + "\n\nJoin date:" 
-                            + str(dt) + "\n\nLink karma:"+ str(user.link_karma)
-                            + "\n\nComment karma:" + str(user.comment_karma) + "\n\nConfirmed trades:" + str(myTrades)
+                dt=time.strftime('%Y-%m-%d %H:%M:%S', time.localtime(submission.author.created_utc))
+                submission.reply("Username: /u/" + user + "\n\nJoin date:" 
+                            + str(dt) + "\n\nLink karma:"+ str(submission.author.link_karma)
+                            + "\n\nComment karma:" + str(submission.author.comment_karma) + "\n\nConfirmed trades:" + str(myTrades)
                              + "\n\n\n^^^The ^^^information ^^^above ^^^is ^^^meant ^^^to ^^^help ^^^you ^^^make ^^^decisions ^^^on ^^^the ^^^original ^^^poster ^^^but ^^^by ^^^no ^^^means ^^^does ^^^it ^^^guarantee ^^^a ^^^successful ^^^transaction."
                              + " ^^^Please ^^^exercise ^^^your ^^^own ^^^caution ^^^regarding ^^^new ^^^accounts ^^^or ^^^those ^^^that ^^^want ^^^venmo/PaypalF&F/zelle ^^^and ^^^other ^^^similar ^^^payment ^^^options ^^^that ^^^do ^^^not ^^^offer ^^^protection.")
                #print("Bot replying to : ", submission.title) #debug
