@@ -90,7 +90,8 @@ for top_level_comment in submission.comments:
         
         if  (second_level_comment.parent_id not in posts_replied_to) and (("confirmed" in second_level_comment.body) or ("Confirmed" in second_level_comment.body)):
             #User replying must have been tagged in original comment
-            if (replyUser in top_level_comment.body):
+            
+            if (replyUser.lower() in top_level_comment.body.lower()):
                 posts_replied_to.append(second_level_comment.parent_id)
                 #Ensure that at least one of the users had posted in the past month
                 #if checkUsers(topUser,replyUser)!=0:
@@ -98,7 +99,7 @@ for top_level_comment in submission.comments:
                 findUser(topUser)
                 findUser(replyUser)
                 #Give confirmation to users that it worked
-                #    second_level_comment.reply("Added")
+                second_level_comment.reply("Added")
                 #else:
                 #   top_level_comment.reply("There was an issue adding, paging /u/ItzADino")
 with open(fileName, "w") as f:
