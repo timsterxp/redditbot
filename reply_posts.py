@@ -45,7 +45,7 @@ def findUser(username):
     
 def addUser(username):
     addCursor=connection.cursor()
-    sql_add_user="insert into trade values('"+username+"',0,1)"
+    sql_add_user="insert into trades values('"+username+"',0,1)"
     addCursor.execute(sql_add_user)
     addCursor.close()
 
