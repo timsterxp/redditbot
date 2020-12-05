@@ -46,6 +46,7 @@ def findUser(username):
 def addUser(username):
     addCursor=connection.cursor()
     sql_add_user="insert into trades values('"+username+"',0,1)"
+    subreddit.flair.set(username, text="Trades:0",css_class="")
     addCursor.execute(sql_add_user)
     addCursor.close()
 
