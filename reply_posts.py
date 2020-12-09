@@ -21,7 +21,7 @@ listStates = ["[USA-AL]","[USA-AK]","[USA-AR]","[USA-AZ]","[USA-CA]","[USA-CO]",
               "[USA-LA]","[USA-ME]","[USA-MD]","[USA-MI]","[USA-MN]","[USA-MO]","[USA-MS]","[USA-MT]","[USA-NE]",
               "[USA-NV]","[USA-NH]","[USA-NJ]","[USA-NM]","[USA-NY]","[USA-NY]","[USA-NC]", "[USA-ND]","[USA-OH]",
               "[USA-OK]","[USA-OR]","[USA-PA]","[USA-RI]","[USA-SC]","[USA-SD]","[USA-TN]","[USA-TX]","[USA-UT]",
-              "[USA-VT]","[USA-VA]","[USA-WA]","[USA-WV]","[USA-WI]","[USA-WY]","[CAN]","[GBR]","[AUS]","[GER]"]
+              "[USA-VT]","[USA-VA]","[USA-WA]","[USA-WV]","[USA-WI]","[USA-WY]","[CAN]","[GBR]","[AUS]","[GER]","[USA-MA]"]
 
 
 def findUser(username):
