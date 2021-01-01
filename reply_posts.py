@@ -89,7 +89,7 @@ for submission in subreddit.new(limit=2):
                              + " ^^^Please ^^^exercise ^^^your ^^^own ^^^caution ^^^regarding ^^^new ^^^accounts ^^^or ^^^those ^^^that ^^^want ^^^venmo/PaypalF&F/zelle ^^^and ^^^other ^^^similar ^^^payment ^^^options ^^^that ^^^do ^^^not ^^^offer ^^^protection.")
                #print("Bot replying to : ", submission.title) #debug
         elif user=='Nobes1990' or user=='ItzADino' or user=='Moomius':
-            submission.reply("Hi Mods!") # Mods are exempt from any filtering
+            continue; # Mods are exempt from any filtering
 
         else:
             removed = submission.reply("Your submission title does not fit the standard posting guidelines, please repost following the [USA-STATE][H] item/money [W] item/money format. Note that State/Providence requirements are only necessary for the USA, you may use [CAN]/[GBR]/[AUS]/[GER] as necessary.")
