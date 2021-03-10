@@ -86,6 +86,8 @@ for top_level_comment in submission.comments:
     
     topUser=top_level_comment.author.name
     for second_level_comment in top_level_comment.replies:
+        if(second_level_comment.author==None):
+            continue
         replyUser=second_level_comment.author.name
         
         if  (second_level_comment.parent_id not in posts_replied_to) and (("confirmed" in second_level_comment.body) or ("Confirmed" in second_level_comment.body)):
