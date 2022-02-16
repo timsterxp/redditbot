@@ -119,6 +119,9 @@ for submission in subreddit.new(limit=1):
                 #print("Bot replying to : ", submission.title) #debug
         elif user=='Nobes1990' or user=='ItzADino' or user=='Moomius' or user=='AppleBandsBot':
             submission.reply("Hi Mods!") # Mods are exempt from any filtering
+            
+        elif "[D]" in submission.title:
+            pass
 
         else:
             removed = submission.reply("Your submission title does not fit the standard posting guidelines, please repost following the [USA-STATE][H] item/money [W] item/money format. Note that State/Providence requirements are only necessary for the USA, you may use [CAN]/[GBR]/[AUS]/[GER] as necessary.")
