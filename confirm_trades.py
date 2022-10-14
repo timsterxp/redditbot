@@ -90,7 +90,7 @@ for top_level_comment in submission.comments:
             continue
         replyUser=second_level_comment.author.name
         
-        if  (second_level_comment.parent_id not in posts_replied_to) and (("confirmed" in second_level_comment.body) or ("Confirmed" in second_level_comment.body)):
+        if  (second_level_comment.parent_id not in posts_replied_to) and (("confirmed" in second_level_comment.body) or ("Confirmed" in second_level_comment.body) or ("Received" in second_level_comment.body) or ("vouch" in second_level_comment.body) or ("received" in second_level_comment.body)):
             #User replying must have been tagged in original comment
             
             if (replyUser.lower() in top_level_comment.body.lower()):
