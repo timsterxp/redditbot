@@ -26,22 +26,26 @@ else:
         mail_replied_to = mail_replied_to.split("\n")
         mail_replied_to = list(filter(None, mail_replied_to))
         
-conversations = subreddit.modmail.conversations(state="mod")
+state = "mod"
+        
+conversations = subreddit.modmail.conversations(state=state)
         
 for eachConvo in conversations:
-    if (eachConvo.num_messages>1):
-        print ("There is more than 1 message! We found: ")
-        print(eachConvo.num_messages)
-        #A secondary check to ensure we arent spamming users
-        continue
+
     if (eachConvo.id not in mail_replied_to):
         print ("Yes this was not found previously!")
         #Add it to the list before doing any actions 
         mail_replied_to.append(eachConvo.id)
         message = "Super long reply message testing"
         eachConvo.reply(body=message)
-        eachConvo.archive()
+        if (state is not "mod"):
+            eachConvo.archive()
         
+        
+        
+with open(fileName, "w") as f:
+    for post_id in mail_replied_to:
+        f.write(post_id + "\n")
         
         
         
