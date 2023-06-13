@@ -10,8 +10,9 @@ import time
 import mysql.connector
 
 
-subreddit=reddit.subreddit('SUBREDDITNAME')
+
 reddit = praw.Reddit('BOTNAME/CONFIG')
+subreddit=reddit.subreddit('SUBREDDITNAME')
 #fileName = fileName
 
 conversations = reddit.subreddit(subreddit).modmail.conversations(state="mod")
