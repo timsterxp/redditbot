@@ -9,8 +9,6 @@ import datetime
 import time
 
 
-
-
 reddit = praw.Reddit('BOTNAME/CONFIG')
 subreddit=reddit.subreddit('SUBREDDITNAME')
 fileName = "mail_replied_to.txt"
@@ -26,10 +24,17 @@ else:
         mail_replied_to = mail_replied_to.split("\n")
         mail_replied_to = list(filter(None, mail_replied_to))
         
+#State can be new/all/archived/etc
+        
 state = "mod"
         
-conversations = subreddit.modmail.conversations(state=state)
         
+#Pull all modmails from the tab you wish
+conversations = subreddit.modmail.conversations(state=state)
+
+
+
+#For each one, ensure you haven't already replied to it automatically        
 for eachConvo in conversations:
 
     if (eachConvo.id not in mail_replied_to):
@@ -37,6 +42,10 @@ for eachConvo in conversations:
         #Add it to the list before doing any actions 
         mail_replied_to.append(eachConvo.id)
         message = "Super long reply message testing"
+        
+        #reply also takes 2 optional parameters:
+        #internal=true/false <-- Private Mod Note
+        #author_hidden=true/false <-- Reply as subreddit
         eachConvo.reply(body=message)
         if (state is not "mod"):
             eachConvo.archive()
