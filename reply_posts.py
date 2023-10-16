@@ -14,7 +14,7 @@ reddit = praw.Reddit('BOTNAME/PRAW CONFIG')
 subreddit = reddit.subreddit('SUBREDDITNAME')
 fileName="fileName"
 removalComment = ("Your submission is flagged as a selling post but does not contain a timestamp from imgur.com, please create a new post that follows all posting guidelines"
-                                + " including [USA-STATE][H][W] and a timestamp from imgur.com. A *Valid* timestamp includes a note/paper with your username and current date in the same picture as the item you are selling. "
+                                + " including [USA-STATE][H][W] and a timestamp from imgur.com, iCloud.com or postimages.org. A *Valid* timestamp includes a note/paper with your username and current date in the same picture as the item you are selling. "
                                 + "Do NOT edit your post to include a timestamp, only new posts will be permitted.")
 listStates = ["[USA-AL]","[USA-AK]","[USA-AR]","[USA-AZ]","[USA-CA]","[USA-CO]","[USA-CT]","[USA-DC]","[USA-DE]",
               "[USA-FL]","[USA-GA]","[USA-HI]","[USA-ID]","[USA-IL]","[USA-IN]","[USA-IA]","[USA-KS]","[USA-KY]",
@@ -72,7 +72,7 @@ for submission in subreddit.new(limit=2):
         user=submission.author.name
         body=submission.selftext
         if any(location in submission.title for location in listStates) and ("[H]" in submission.title) and ("[W]" in submission.title):
-            if submission.link_flair_css_class == 'orange' and ("imgur.com" not in body and "icloud.com" not in body):
+            if submission.link_flair_css_class == 'orange' and ("imgur.com" not in body and "icloud.com" not in body and "postimg.cc" not in body and "postimages.org" not in body):
                
                 removed = submission.reply(removalComment)
                 removed.mod.distinguish(how="yes",sticky=True)
